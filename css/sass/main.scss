@@ -1,0 +1,121 @@
+@mixin opacity($opacity) {
+    opacity: $opacity;
+    // IE8 filter
+    $opacity-ie: ($opacity * 100);
+    filter: #{alpha(opacity=$opacity-ie)};
+}
+
+@mixin transition($transition-property, $transition-time, $method) {
+    -webkit-transition: $transition-property $transition-time $method;
+    -moz-transition: $transition-property $transition-time $method;
+    -ms-transition: $transition-property $transition-time $method;
+    -o-transition: $transition-property $transition-time $method;
+    transition: $transition-property $transition-time $method;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    position: absolute;
+    overflow: hidden;
+
+    .nav {
+        position: absolute;
+        z-index: 1;
+    }
+
+    #prev {
+        left: 0;
+        height: 100%;
+        width: 50%;
+
+        &:before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 50%;
+            margin-top: -30px;
+            width: 0; 
+            height: 0; 
+            border-top: 30px solid transparent;
+            border-bottom: 30px solid transparent;
+            border-right: 30px solid #fff;
+            @include opacity(0.2);
+            @include transition(all, 0.2s, ease);
+        }
+
+        &:hover {
+            &:before {
+                left: 20px;
+                @include opacity(0.6);
+            }
+        }
+    }
+
+    #next {
+        right: 0;
+        height: 100%;
+        width: 50%;
+
+        &:before {
+            content: '';
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            margin-top: -30px;
+            width: 0; 
+            height: 0; 
+            border-top: 30px solid transparent;
+            border-bottom: 30px solid transparent;
+            border-left: 30px solid #fff;
+            @include opacity(0.2);
+            @include transition(all, 0.2s, ease);
+        }
+
+        &:hover {
+            &:before {
+                right: 20px;
+                @include opacity(0.6);
+            }
+        }
+    }
+
+    ul {
+        position: relative;
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+        display: table;
+        width: 100%;
+        height: 100%;
+    
+        li {
+            display: table-cell;
+            vertical-align: middle;
+            width: 100vw;
+            height: 100vh;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+
+            img {
+                width: auto;
+                height: 100%;
+                display: block;
+                margin: 10px auto;
+
+                @media (max-width: 768px) {
+                    width: 100%;
+                    height: auto;
+                }
+            }
+        }
+    }
+}
+
